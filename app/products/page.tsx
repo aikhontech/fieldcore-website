@@ -1,23 +1,31 @@
 import Link from "next/link";
+import { products } from "@/lib/products";
 
-export default function HomePage() {
+export default function ProductsPage() {
   return (
     <div className="space-y-8">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-10">
-        <h1 className="text-4xl font-semibold">
-          Industrial automation products built for the field.
-        </h1>
-        <p className="mt-4 max-w-2xl text-white/70">
-          Rugged controllers, modular expansion, and future telematics—designed for real-world deployments.
+      <div>
+        <h1 className="text-3xl font-semibold">Products</h1>
+        <p className="mt-3 text-white/60">
+          Controllers and modular expansions built for rugged automation and field deployment.
         </p>
-        <div className="mt-6">
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        {products.map((p) => (
           <Link
-            href="/products"
-            className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
+            key={p.slug}
+            href={`/products/${p.slug}`}
+            className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10"
           >
-            View Products
+            <div className="text-xs text-white/60">{p.status ?? "—"}</div>
+            <div className="mt-2 text-lg font-semibold">{p.name}</div>
+            <div className="mt-2 text-sm text-white/60">{p.short}</div>
+            <div className="mt-4 text-sm font-semibold text-white/80">
+              View details →
+            </div>
           </Link>
-        </div>
+        ))}
       </div>
     </div>
   );
