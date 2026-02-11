@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -9,16 +10,21 @@ const nav = [
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-white/10 ring-1 ring-white/15" />
-          <div className="leading-tight">
-            <div className="text-sm font-semibold tracking-wide text-white">
-              FIELDCORE
-            </div>
-            <div className="text-xs text-white/60">Technologies</div>
-          </div>
+    // fixed height navbar
+    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-3">
+          {/* Bigger logo */}
+          <Image
+            src="/images/company-logo.png"
+            alt="Fieldcore Technologies"
+            width={220}
+            height={60}
+            priority
+            className="w-auto h-12 drop-shadow-[0_0_8px_rgba(0,255,255,0.3)]"
+          />
+
+          {/* Optional text (remove if you want logo-only) */}
         </Link>
 
         <nav className="hidden gap-6 md:flex">
