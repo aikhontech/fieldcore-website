@@ -2,24 +2,21 @@ import Link from "next/link";
 import { getProduct, products } from "@/lib/products";
 import { notFound } from "next/navigation";
 
-export function generateStaticParams() {
-  return products.map((p) => ({
-    slug: p.slug,
-  }));
+export async function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }));
 }
 
-export default function ProductDetailPage({
+type Params = { slug: string };
+
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Params | Promise<Params>;
 }) {
-  const slug = params.slug;
+  const resolved = await Promise.resolve(params);
+  const product = getProduct(resolved.slug);
 
-  const product = getProduct(slug);
-
-  if (!product) {
-    return notFound();
-  }
+  if (!product) return notFound();
 
   return (
     <div className="space-y-10">

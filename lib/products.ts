@@ -65,6 +65,7 @@ export const products: Product[] = [
   },
 ];
 
-export function getProduct(slug: string) {
-  return products.find((p) => p.slug === slug);
+export function getProduct(slug?: string) {
+  const normalized = decodeURIComponent((slug ?? "").trim().toLowerCase());
+  return products.find((p) => p.slug.toLowerCase() === normalized);
 }
