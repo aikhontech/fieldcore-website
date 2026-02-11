@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "FIELDCORE Technologies",
-  description: "Industrial automation products and PLC-style control systems.",
+  description: "Industrial Automation & Embedded Systems",
 };
 
 export default function RootLayout({

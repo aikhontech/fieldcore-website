@@ -5,6 +5,7 @@ export type Product = {
   description: string;
   highlights: string[];
   specs: { label: string; value: string }[];
+  images?: { src: string; alt: string }[];
   status?: "Available" | "In Development" | "Prototype";
 };
 
@@ -13,17 +14,21 @@ export const products: Product[] = [
     slug: "plc-controller-v1",
     name: "PLC Controller V1",
     short: "Industrial I/O controller for reliable field automation and vehicle upfitting.",
-    description:
-      "A rugged PLC-style controller designed for real-world I/O, control logic, and integration into industrial and mobile applications.",
+    description: "A rugged PLC-style controller designed for real-world I/O...",
+    images: [
+      { src: "/images/plc-v1-nice.png", alt: "PLC Controller V1 hero view" },
+      { src: "/images/plc-v1-side1.png", alt: "PLC Controller V1 top view" },
+      { src: "/images/plc-v1-together-best.png", alt: "PLC Controller V1 multiple angles" },
+    ],
     highlights: [
       "Multiple digital inputs and relay outputs",
       "Designed for noisy environments",
-      "Expandable architecture for future modules",
-      "Built for field serviceability",
+      "Expandable ecosystem",
+      "Field-serviceable wiring terminals",
     ],
     specs: [
       { label: "I/O", value: "Digital inputs, relay outputs, analog channels" },
-      { label: "Connectivity", value: "Expansion-ready (future modules)" },
+      { label: "Power", value: "Designed for rugged deployments" },
       { label: "Use cases", value: "Automation, vehicle upfits, remote control" },
     ],
     status: "Prototype",
