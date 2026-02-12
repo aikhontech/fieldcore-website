@@ -10,21 +10,17 @@ const nav = [
 
 export default function Navbar() {
   return (
-    // fixed height navbar
-    <header className="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
-      <div className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-black/70 backdrop-blur">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-3">
-          {/* Bigger logo */}
           <Image
-            src="/images/company-logo.png"
+            src="/images/company-logo1.png"
             alt="Fieldcore Technologies"
-            width={220}
-            height={60}
+            width={1000}
+            height={300}
             priority
-            className="w-auto h-12 drop-shadow-[0_0_8px_rgba(0,255,255,0.3)]"
+            className="h-12 w-auto object-contain"   // 👈 bigger logo
           />
-
-          {/* Optional text (remove if you want logo-only) */}
         </Link>
 
         <nav className="hidden gap-6 md:flex">
