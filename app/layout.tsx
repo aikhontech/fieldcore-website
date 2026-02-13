@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-[#040404] text-white antialiased">
-        <div className="relative min-h-screen overflow-hidden">
+        <div className="relative min-h-screen">
 
           {/* PCB Background */}
           <div
