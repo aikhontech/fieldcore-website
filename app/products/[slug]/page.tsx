@@ -70,7 +70,7 @@ export default async function ProductDetailPage({
             href="/contact"
             className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
           >
-            Request a Quote
+            Contact
           </Link>
           <Link
             href="/contact"
