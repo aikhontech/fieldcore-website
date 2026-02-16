@@ -70,7 +70,7 @@ export default function AboutPage() {
             href="/contact"
             className="mt-6 inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
           >
-            Request a Quote
+            Contact
           </a>
         </div>
       </section>

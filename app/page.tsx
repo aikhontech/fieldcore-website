@@ -24,11 +24,8 @@ export default function HomePage() {
             >
               View Products
             </Link>
-            <Link
-              href="/contact"
-              className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/5"
-            >
-              Request a Quote
+            <Link href="/contact" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/5">
+              Contact
             </Link>
           </div>
         </div>

@@ -24,9 +24,17 @@ export default function Footer() {
         </div>
 
         <div className="text-sm">
-          <div className="font-semibold text-white">Get in touch</div>
-          <div className="mt-3 text-white/70">
-            Use the contact form to request pricing, integration details, or product availability.
+          <div className="font-semibold text-white">Contact</div>
+          <div className="mt-3 grid gap-2 text-white/70">
+            <a className="hover:text-white" href="mailto:info@fieldcoretechnologies.com">
+              info@fieldcoretechnologies.com
+            </a>
+            <a className="hover:text-white" href="mailto:sales@fieldcoretechnologies.com">
+              sales@fieldcoretechnologies.com
+            </a>
+            <a className="hover:text-white" href="tel:+14168566965">
+              +1 416-856-6965
+            </a>
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const nav = [
   { href: "/", label: "Home" },
@@ -9,10 +11,11 @@ const nav = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur shadow-lg">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
-        {/* Left: logo (allowed to shrink) */}
+        {/* Left: logo */}
         <Link href="/" className="flex min-w-0 items-center gap-3">
           <Image
             src="/images/company-logo1.png"
@@ -27,23 +30,33 @@ export default function Navbar() {
 
         {/* Middle nav (desktop only) */}
         <nav className="hidden gap-6 md:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm text-white/80 hover:text-white"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {nav.map((item) => {
+            const isActive =
+              item.href === "/"
+                ? pathname === "/"
+                : pathname.startsWith(item.href);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={[
+                  "text-sm transition-colors",
+                  isActive ? "text-white font-semibold" : "text-white/70 hover:text-white",
+                ].join(" ")}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Right: CTA (never wrap, tighter on mobile) */}
+        {/* Right CTA */}
         <Link
           href="/contact"
           className="whitespace-nowrap rounded-xl bg-white px-3 py-2 text-sm font-semibold text-black hover:bg-white/90 md:px-4"
         >
-          Request a Quote
+          Contact
         </Link>
       </div>
     </header>

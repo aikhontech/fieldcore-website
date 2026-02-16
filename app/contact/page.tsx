@@ -4,25 +4,11 @@ import { useMemo, useState } from "react";
 
 type FormState = {
   name: string;
-  company: string;
   email: string;
   phone: string;
-  projectType: string;
-  ioDigitalIn: string;
-  ioDigitalOut: string;
-  ioAnalogIn: string;
-  ioAnalogOut: string;
-  environment: string;
+  department: "Sales" | "Info";
   message: string;
 };
-
-const PROJECT_TYPES = [
-  "PLC / Controller",
-  "I/O Expansion Module",
-  "Vehicle / Mobile Upfit",
-  "Custom Embedded System",
-  "Other",
-] as const;
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
@@ -31,29 +17,21 @@ function isValidEmail(email: string) {
 export default function ContactPage() {
   const [form, setForm] = useState<FormState>({
     name: "",
-    company: "",
     email: "",
     phone: "",
-    projectType: "PLC / Controller",
-    ioDigitalIn: "",
-    ioDigitalOut: "",
-    ioAnalogIn: "",
-    ioAnalogOut: "",
-    environment: "",
+    department: "Sales",
     message: "",
   });
 
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-  const [errorMsg, setErrorMsg] = useState<string>("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const errors = useMemo(() => {
     const e: Record<string, string> = {};
     if (!form.name.trim()) e.name = "Name is required.";
     if (!form.email.trim()) e.email = "Email is required.";
     else if (!isValidEmail(form.email)) e.email = "Enter a valid email.";
-    if (!form.message.trim()) e.message = "Tell us a bit about your project.";
+    if (!form.message.trim()) e.message = "Message is required.";
     return e;
   }, [form]);
 
@@ -88,16 +66,7 @@ export default function ContactPage() {
       }
 
       setStatus("success");
-      // Optional: reset form
-      setForm((prev) => ({
-        ...prev,
-        message: "",
-        ioDigitalIn: "",
-        ioDigitalOut: "",
-        ioAnalogIn: "",
-        ioAnalogOut: "",
-        environment: "",
-      }));
+      setForm((prev) => ({ ...prev, message: "" }));
     } catch (err: any) {
       setStatus("error");
       setErrorMsg(err?.message || "Something went wrong. Please try again.");
@@ -105,145 +74,78 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="py-12">
+    <div className="space-y-12">
       {/* Header */}
       <section className="rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/0 p-8 md:p-12">
         <div className="max-w-3xl">
           <h1 className="text-[clamp(2rem,4.8vw,3.3rem)] font-semibold leading-[1.06] tracking-tight">
-            Request a Quote
+            Contact Us
           </h1>
           <p className="mt-4 text-white/70 md:text-lg">
-            Send your requirements and we’ll recommend a configuration or build
-            plan. Typical details: I/O count, power, environment, mounting, and
-            communications.
+            Reach the Fieldcore team using the form or contact us directly by email/phone.
           </p>
         </div>
       </section>
 
-      {/* Content */}
       <section className="mt-8 grid gap-6 md:grid-cols-5">
         {/* Form */}
         <div className="md:col-span-3">
-          <form
-            onSubmit={onSubmit}
-            className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8"
-          >
+          <form onSubmit={onSubmit} className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
             <div className="grid gap-4 md:grid-cols-2">
               <Field
-                label="Full Name"
+                label="Name"
                 value={form.name}
                 onChange={(v) => update("name", v)}
                 placeholder="Your name"
                 error={errors.name}
               />
               <Field
-                label="Company"
-                value={form.company}
-                onChange={(v) => update("company", v)}
-                placeholder="Company (optional)"
-              />
-              <Field
                 label="Email"
                 value={form.email}
                 onChange={(v) => update("email", v)}
-                placeholder="you@company.com"
+                placeholder="your@email.com"
                 error={errors.email}
                 type="email"
               />
               <Field
-                label="Phone"
+                label="Phone (optional)"
                 value={form.phone}
                 onChange={(v) => update("phone", v)}
-                placeholder="(optional)"
+                placeholder="Optional"
               />
 
-              <div className="md:col-span-2">
-                <label className="text-sm font-medium text-white/90">
-                  Project Type
-                </label>
+              <div>
+                <label className="text-sm font-medium text-white/90">Department</label>
                 <div className="mt-2">
                   <select
-                    value={form.projectType}
-                    onChange={(e) => update("projectType", e.target.value)}
-                    className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none ring-0 focus:border-white/20"
+                    value={form.department}
+                    onChange={(e) => update("department", e.target.value as FormState["department"])}
+                    className="w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white outline-none focus:border-white/20"
                   >
-                    {PROJECT_TYPES.map((t) => (
-                      <option key={t} value={t} className="bg-black">
-                        {t}
-                      </option>
-                    ))}
+                    <option value="Sales" className="bg-black">Sales</option>
+                    <option value="Info" className="bg-black">Info</option>
                   </select>
                 </div>
               </div>
             </div>
 
-            {/* I/O */}
-            <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-5">
-              <div className="text-sm font-semibold">I/O Requirements</div>
-              <div className="mt-4 grid gap-4 md:grid-cols-2">
-                <Field
-                  label="Digital Inputs"
-                  value={form.ioDigitalIn}
-                  onChange={(v) => update("ioDigitalIn", v)}
-                  placeholder="e.g. 10"
-                />
-                <Field
-                  label="Digital Outputs"
-                  value={form.ioDigitalOut}
-                  onChange={(v) => update("ioDigitalOut", v)}
-                  placeholder="e.g. 8 relays"
-                />
-                <Field
-                  label="Analog Inputs"
-                  value={form.ioAnalogIn}
-                  onChange={(v) => update("ioAnalogIn", v)}
-                  placeholder="e.g. 2 (0–10V)"
-                />
-                <Field
-                  label="Analog Outputs"
-                  value={form.ioAnalogOut}
-                  onChange={(v) => update("ioAnalogOut", v)}
-                  placeholder="e.g. 2 (DAC)"
-                />
-              </div>
-            </div>
-
-            {/* Environment */}
             <div className="mt-6">
-              <label className="text-sm font-medium text-white/90">
-                Environment / Constraints
-              </label>
-              <textarea
-                value={form.environment}
-                onChange={(e) => update("environment", e.target.value)}
-                placeholder="Vibration, temperature range, enclosure/IP rating, mounting, power input, comms (CAN, RS-485, Ethernet, LTE)…"
-                className="mt-2 h-24 w-full resize-none rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white/90 outline-none focus:border-white/20"
-              />
-            </div>
-
-            {/* Message */}
-            <div className="mt-6">
-              <label className="text-sm font-medium text-white/90">
-                Project Description
-              </label>
+              <label className="text-sm font-medium text-white/90">Message</label>
               <textarea
                 value={form.message}
                 onChange={(e) => update("message", e.target.value)}
-                placeholder="What are you building? What needs to be controlled/monitored? Timeline?"
+                placeholder="How can we help?"
                 className={[
-                  "mt-2 h-32 w-full resize-none rounded-2xl border bg-black/30 px-4 py-3 text-sm text-white/90 outline-none focus:border-white/20",
+                  "mt-2 h-36 w-full resize-none rounded-2xl border bg-black/30 px-4 py-3 text-sm text-white/90 outline-none focus:border-white/20",
                   errors.message ? "border-red-500/60" : "border-white/10",
                 ].join(" ")}
               />
-              {errors.message ? (
-                <p className="mt-2 text-xs text-red-400">{errors.message}</p>
-              ) : null}
+              {errors.message ? <p className="mt-2 text-xs text-red-400">{errors.message}</p> : null}
             </div>
 
-            {/* Status */}
             {status === "success" ? (
               <div className="mt-6 rounded-2xl border border-emerald-400/20 bg-emerald-400/10 p-4 text-sm text-emerald-100">
-                ✅ Request received. We’ll reach out shortly.
+                ✅ Message sent. We’ll get back to you shortly.
               </div>
             ) : null}
 
@@ -253,60 +155,57 @@ export default function ContactPage() {
               </div>
             ) : null}
 
-            {/* Submit */}
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-6">
               <button
                 type="submit"
                 disabled={!canSubmit}
                 className={[
-                  "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold",
-                  canSubmit
-                    ? "bg-white text-black hover:bg-white/90"
-                    : "bg-white/20 text-white/60 cursor-not-allowed",
+                  "w-full rounded-xl px-5 py-3 text-sm font-semibold sm:w-auto",
+                  canSubmit ? "bg-white text-black hover:bg-white/90" : "bg-white/20 text-white/60 cursor-not-allowed",
                 ].join(" ")}
               >
-                {status === "submitting" ? "Submitting..." : "Submit Request"}
+                {status === "submitting" ? "Sending..." : "Submit"}
               </button>
-
-              <p className="text-xs text-white/50">
-                We typically respond within 1–2 business days.
-              </p>
             </div>
           </form>
         </div>
 
-        {/* Side panel */}
+        {/* Direct Contact */}
         <div className="md:col-span-2">
           <div className="rounded-3xl border border-white/10 bg-white/5 p-6 md:p-8">
-            <div className="text-lg font-semibold">Contact</div>
-            <div className="mt-4 space-y-3 text-sm text-white/70">
+            <div className="text-lg font-semibold">Direct Contact</div>
+
+            <div className="mt-5 space-y-5 text-sm text-white/70">
               <div>
-                <div className="text-white/90 font-medium">Email</div>
-                <div className="mt-1">aikhon@fieldcoretechnologies.com</div>
+                <div className="font-medium text-white/90">Sales</div>
+                <a className="mt-1 block hover:text-white" href="mailto:sales@fieldcoretechnologies.com">
+                  sales@fieldcoretechnologies.com
+                </a>
               </div>
+
               <div>
-                <div className="text-white/90 font-medium">Location</div>
-                <div className="mt-1">Ontario, Canada</div>
+                <div className="font-medium text-white/90">Info</div>
+                <a className="mt-1 block hover:text-white" href="mailto:info@fieldcoretechnologies.com">
+                  info@fieldcoretechnologies.com
+                </a>
               </div>
+
               <div className="pt-4 border-t border-white/10">
-                <div className="text-white/90 font-medium">What to include</div>
-                <ul className="mt-2 list-disc pl-5 space-y-1 text-white/60">
-                  <li>I/O count (DI/DO/AI/AO)</li>
-                  <li>Power input range</li>
-                  <li>Enclosure/IP rating</li>
-                  <li>Comms: CAN / RS-485 / Ethernet / LTE</li>
-                  <li>Timeline & quantity</li>
-                </ul>
+                <div className="font-medium text-white/90">Phone (Sales & Info Team)</div>
+                <a className="mt-1 block hover:text-white" href="tel:+14168566965">
+                  +1 416-856-6965
+                </a>
               </div>
             </div>
           </div>
 
           <div className="mt-6 rounded-3xl border border-white/10 bg-gradient-to-b from-white/10 to-white/0 p-6 md:p-8">
-            <div className="text-sm font-semibold">Prefer a quick start?</div>
-            <p className="mt-2 text-sm text-white/70">
-              If you already know your requirements, send the I/O and environment
-              notes and we’ll propose a configuration.
-            </p>
+            <div className="text-sm font-semibold">What to include</div>
+            <ul className="mt-2 list-disc pl-5 text-sm text-white/60 space-y-1">
+              <li>Product of interest</li>
+              <li>Quantity / timeline</li>
+              <li>Application environment</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -332,18 +231,16 @@ function Field({
   return (
     <div>
       <label className="text-sm font-medium text-white/90">{label}</label>
-      <div className="mt-2">
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          placeholder={placeholder}
-          className={[
-            "w-full rounded-xl border bg-black/30 px-4 py-3 text-sm text-white/90 outline-none focus:border-white/20",
-            error ? "border-red-500/60" : "border-white/10",
-          ].join(" ")}
-        />
-      </div>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className={[
+          "mt-2 w-full rounded-xl border bg-black/30 px-4 py-3 text-sm text-white/90 outline-none focus:border-white/20",
+          error ? "border-red-500/60" : "border-white/10",
+        ].join(" ")}
+      />
       {error ? <p className="mt-2 text-xs text-red-400">{error}</p> : null}
     </div>
   );
