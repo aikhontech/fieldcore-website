@@ -19,10 +19,70 @@ export default async function ProductDetailPage({
 
   if (!product) return notFound();
 
+  const isCategory = product.group === "Category";
+
+  const parentCategory = !isCategory
+    ? products.find((p) => p.group === "Category" && p.name === product.group)
+    : null;
+
+  const backHref = isCategory
+    ? "/products"
+    : parentCategory
+    ? `/products/${parentCategory.slug}`
+    : "/products";
+  // ✅ If this is a category tile (e.g. Connectors), show a listing page
+  if (product.group === "Category") {
+    const items = products.filter(
+      (p) =>
+        p.category === product.category &&
+        p.group === product.name && // e.g. group "Connectors"
+        !!p.sku
+    );
+
+    return (
+      <div className="space-y-10">
+        <Link href={backHref} className="text-sm text-white/70 hover:text-white">
+          ← Back
+        </Link>
+
+        <div>
+          <h1 className="text-3xl font-semibold">{product.name}</h1>
+          <p className="mt-3 text-white/60">{product.description}</p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {items.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/products/${p.slug}`}
+              className="rounded-2xl border border-white/10 bg-white/5 p-6 hover:bg-white/10"
+            >
+              <div className="text-xs text-white/60">{p.status ?? "—"}</div>
+              <div className="mt-2 text-lg font-semibold">{p.name}</div>
+              <div className="mt-2 text-sm text-white/60">{p.short}</div>
+              <div className="mt-4 text-sm font-semibold text-white/80">
+                View details →
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {items.length === 0 ? (
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-white/60">
+            No items listed yet. Contact Sales for quotes and compatibility guidance.
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  // ✅ Normal SKU detail page below (your existing layout)
+  const productName = encodeURIComponent(product.name);
+
   return (
     <div className="space-y-10">
-      <Link href="/products" className="text-sm text-white/70 hover:text-white">
-        ← Back to Products
+      <Link href={backHref} className="text-sm text-white/70 hover:text-white">
+        ← Back
       </Link>
 
       {/* Image Gallery (optional) */}
@@ -32,10 +92,9 @@ export default async function ProductDetailPage({
           <Image
             src={product.images[0].src}
             alt={product.images[0].alt}
-            width={1400}
-            height={900}
-            priority
-            className="max-h-[520px] w-full rounded-3xl border border-white/10 object-cover"
+            width={800}
+            height={600}
+            className="mx-auto max-h-[350px] w-auto rounded-3xl border border-white/10 object-contain"
           />
 
           {/* Secondary images */}
@@ -62,21 +121,24 @@ export default async function ProductDetailPage({
           <span className="h-2 w-2 rounded-full bg-amber-400"></span>
           {product.status}
         </div>
+
         <h1 className="mt-2 text-3xl font-semibold">{product.name}</h1>
+
+        {product.sku ? (
+          <div className="mt-2 text-sm text-white/60">
+            Part Number:{" "}
+            <span className="text-white/80 font-medium">{product.sku}</span>
+          </div>
+        ) : null}
+
         <p className="mt-4 max-w-2xl text-white/70">{product.description}</p>
 
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-6">
           <Link
-            href="/contact"
-            className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
+            href={`/contact?dept=sales&product=${productName}`}
+            className="inline-flex rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
           >
-            Contact
-          </Link>
-          <Link
-            href="/contact"
-            className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/10"
-          >
-            Ask about availability
+            Contact Sales
           </Link>
         </div>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 
 type FormState = {
   name: string;
@@ -15,6 +16,7 @@ function isValidEmail(email: string) {
 }
 
 export default function ContactPage() {
+  const searchParams = useSearchParams();
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -25,6 +27,30 @@ export default function ContactPage() {
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+  const dept = (searchParams.get("dept") || "").toLowerCase();
+  const product = (searchParams.get("product") || "").trim();
+
+  setForm((prev) => {
+    // choose department if provided
+    const nextDept: FormState["department"] =
+      dept === "info" ? "Info" : dept === "sales" ? "Sales" : prev.department;
+
+    // only prefill message if empty (don’t overwrite what user is typing)
+    const nextMessage =
+      !prev.message.trim()
+        ? product
+          ? `Requesting a quote / availability for: ${product}\n\nQuantity:\nTimeline:\nApplication environment:\nNotes:`
+          : dept === "sales"
+          ? `Requesting a quote / product guidance.\n\nProduct of interest:\nQuantity:\nTimeline:\nApplication environment:\nNotes:`
+          : prev.message
+        : prev.message;
+
+    return { ...prev, department: nextDept, message: nextMessage };
+  });
+  // run only when the URL params change
+}, [searchParams.get("dept"), searchParams.get("product")]);
 
   const errors = useMemo(() => {
     const e: Record<string, string> = {};

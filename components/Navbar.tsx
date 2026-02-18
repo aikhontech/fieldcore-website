@@ -53,10 +53,10 @@ export default function Navbar() {
 
         {/* Right CTA */}
         <Link
-          href="/contact"
+          href="/contact?dept=sales"
           className="whitespace-nowrap rounded-xl bg-white px-3 py-2 text-sm font-semibold text-black hover:bg-white/90 md:px-4"
         >
-          Contact
+          Contact Sales
         </Link>
       </div>
     </header>
