@@ -1,3 +1,5 @@
+import type { Product } from "./types";
+
 export const consumableProducts: Product[] = [
   {
     slug: "fc-solder-60-40-1mm",
