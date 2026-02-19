@@ -32,10 +32,18 @@ export default function Footer() {
             <a className="hover:text-white" href="mailto:sales@fieldcoretechnologies.com">
               sales@fieldcoretechnologies.com
             </a>
+
+            {/*
             <a className="hover:text-white" href="tel:+14168566965">
               +1 416-856-6965
             </a>
+            */}      
           </div>
+          
+          <div className="mt-4 text-white/60 text-xs">
+          Ontario, Canada
+          </div>
+
         </div>
       </div>
     </footer>
