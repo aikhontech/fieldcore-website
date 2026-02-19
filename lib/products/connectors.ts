@@ -190,9 +190,9 @@ export const connectorProducts: Product[] = [
   // Amphenol AHDP (Round/Circular) SRA
   // Your chosen style: FC-CONN-RO-18-08PA-SRA etc.
   // -------------------
-  conn({ sku: "FC-CONN-RO-18-08PA-SRA", internalRef: "AHDP06-18-08PN-SRA", positions: 8, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-18-08sa-sra"] }),
-  conn({ sku: "FC-CONN-RO-18-08SA-SRA", internalRef: "AHDP04-18-08SN-SRA", positions: 8, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-18-08pa-sra"] }),
+  conn({ sku: "FC-CONN-RO-18-08PA", internalRef: "AHDP06-18-08PN-SRA", positions: 8, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-18-08sa"] }),
+  conn({ sku: "FC-CONN-RO-18-08SA", internalRef: "AHDP04-18-08SN-SRA", positions: 8, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-18-08pa"] }),
 
-  conn({ sku: "FC-CONN-RO-24-16PA-SRA", internalRef: "AHDP06-24-16PN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16sa-sra"] }),
-  conn({ sku: "FC-CONN-RO-24-16SA-SRA", internalRef: "AHDP04-24-16SN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16pa-sra"] }),
+  conn({ sku: "FC-CONN-RO-24-16PA", internalRef: "AHDP06-24-16PN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16sa"] }),
+  conn({ sku: "FC-CONN-RO-24-16SA", internalRef: "AHDP04-24-16SN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16pa"] }),
 ];
