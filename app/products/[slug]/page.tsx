@@ -1,7 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 
-import { products } from "@/lib/products";
+import { products, getProduct } from "@/lib/products";
+import { sortConnectors } from "@/lib/products/connectors";
+import ConnectorCatalog from "@/components/ConnectorCatalog";
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
@@ -21,27 +24,30 @@ export default async function ProductDetailPage({
   const resolvedParams = await Promise.resolve(params);
   const slug = normalizeSlug(resolvedParams.slug);
 
-  const product = products.find((p) => normalizeSlug(p.slug) === slug);
+  // Use getProduct (single source of truth)
+  const product = getProduct(slug);
 
   if (!product) {
-    return (
-      <div className="space-y-6">
-        <h1 className="text-2xl font-semibold">Product not found</h1>
-        <Link href="/products" className="text-white/70 hover:text-white">
-          ← Back to products
-        </Link>
-      </div>
-    );
+    notFound();
   }
-  const isCategory = product.category === "Accessories" && product.group === "Category";
+
+  const isCategory =
+    product.category === "Accessories" && product.group === "Category";
+
   const related = isCategory
-    ? products.filter(
+  ? products
+      .filter(
         (p) =>
           p.category === "Accessories" &&
           p.group === product.name &&
           p.slug !== product.slug
       )
-    : [];
+      .sort(
+        product.name === "Connectors"
+          ? sortConnectors
+          : (a, b) => a.name.localeCompare(b.name)
+      )
+  : [];
 
   return (
     <div className="space-y-10">
@@ -63,7 +69,9 @@ export default async function ProductDetailPage({
           </div>
 
           <Link
-            href={`/contact?dept=sales&product=${encodeURIComponent(product.name)}`}
+            href={`/contact?dept=sales&product=${encodeURIComponent(
+              product.name
+            )}`}
             className="inline-flex w-fit rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-white/90"
           >
             Contact Sales
@@ -71,49 +79,57 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-            {/* Category listing (Accessories -> Category page) */}
+      {/* Category listing (Accessories -> Category page) */}
       {isCategory ? (
         <section className="space-y-5">
           <div className="flex items-end justify-between gap-4">
             <div>
               <h2 className="text-xl font-semibold">{product.name} catalog</h2>
               <p className="mt-2 text-sm text-white/60">
-                Showing SKUs currently loaded into the site. Add/remove items in lib/products.ts.
+                Showing SKUs currently loaded into the site. Add/remove items in{" "}
+                <span className="text-white/80">lib/products/</span>.
               </p>
             </div>
           </div>
 
           {related.length ? (
-            <div className="grid gap-4 md:grid-cols-3">
-              {related.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/products/${p.slug}`}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-6 transition-all duration-200 hover:bg-white/10 hover:-translate-y-1"
-                >
-                  {p.images?.[0] && (
-                    <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl bg-white/5">
-                      <Image
-                        src={p.images[0].src}
-                        alt={p.images[0].alt}
-                        fill
-                        className="object-contain p-3"
-                      />
-                    </div>
-                  )}
+            product.name === "Connectors" ? (
+              <ConnectorCatalog items={related} />
+            ) : (
+              <div className="grid gap-4 md:grid-cols-3">
+                {related.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/products/${p.slug}`}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-6 transition-all duration-200 hover:bg-white/10 hover:-translate-y-1"
+                  >
+                    {p.images?.[0] && (
+                      <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-xl bg-white/5">
+                        <Image
+                          src={p.images[0].src}
+                          alt={p.images[0].alt}
+                          fill
+                          className="object-contain p-3"
+                        />
+                      </div>
+                    )}
 
-                  <div className="text-xs text-white/60">{p.status ?? "—"}</div>
-                  <div className="mt-2 text-lg font-semibold">{p.sku ?? p.name}</div>
-                  <div className="mt-2 text-sm text-white/60">{p.short}</div>
-                  <div className="mt-4 text-sm font-semibold text-white/80">View details →</div>
-                </Link>
-              ))}
-            </div>
+                    <div className="text-xs text-white/60">{p.status ?? "—"}</div>
+                    <div className="mt-2 text-lg font-semibold">{p.sku ?? p.name}</div>
+                    <div className="mt-2 text-sm text-white/60">{p.short}</div>
+                    <div className="mt-4 text-sm font-semibold text-white/80">
+                      View details →
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )
           ) : (
             <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/60">
               No SKUs listed yet for this category.
             </div>
           )}
+
         </section>
       ) : (
         <>
@@ -165,7 +181,10 @@ export default async function ProductDetailPage({
                 <div className="text-sm font-semibold">Specs</div>
                 <div className="mt-3 space-y-2 text-sm">
                   {product.specs.map((s) => (
-                    <div key={s.label} className="flex items-start justify-between gap-4">
+                    <div
+                      key={s.label}
+                      className="flex items-start justify-between gap-4"
+                    >
                       <div className="text-white/60">{s.label}</div>
                       <div className="text-white/80 text-right">{s.value}</div>
                     </div>

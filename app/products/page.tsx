@@ -2,10 +2,13 @@ import Link from "next/link";
 import { products } from "@/lib/products";
 
 export default function ProductsPage() {
-    const controllers = products.filter((p) => p.category === "Controllers");
-    const accessories = products.filter(
-    (p) => p.category === "Accessories" && p.group === "Category"
-    );
+  const controllers = products
+    .filter((p) => p.category === "Controllers")
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const accessories = products
+    .filter((p) => p.category === "Accessories" && p.group === "Category")
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   return (
     <div className="space-y-14">
