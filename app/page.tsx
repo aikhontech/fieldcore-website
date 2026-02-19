@@ -54,6 +54,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-2xl font-semibold">Products</h2>
             <p className="mt-2 text-white/60">
+
               Controllers, expansion modules, and industrial accessories for rugged automation.
             </p>
           </div>

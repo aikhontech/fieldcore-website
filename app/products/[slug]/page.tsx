@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+
 import { products } from "@/lib/products";
 
 export function generateStaticParams() {
@@ -32,7 +33,6 @@ export default async function ProductDetailPage({
       </div>
     );
   }
-
   const isCategory = product.category === "Accessories" && product.group === "Category";
   const related = isCategory
     ? products.filter(

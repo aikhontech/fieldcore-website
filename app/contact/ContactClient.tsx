@@ -65,7 +65,6 @@ export default function ContactClient() {
       setStatus({ state: "error", message: e?.message || "Something went wrong." });
     }
   }
-
   return (
     <div className="space-y-10">
       {/* Header */}
