@@ -2,7 +2,11 @@ import Link from "next/link";
 import { products } from "@/lib/products";
 
 export default function HomePage() {
-  const featured = products.slice(0, 3);
+  // Show a mix of flagship controllers + accessory categories (not every SKU)
+  const featured = [
+    ...products.filter((p) => p.category === "Controllers").slice(0, 1),
+    ...products.filter((p) => p.category === "Accessories" && p.group === "Category").slice(0, 2),
+  ];
 
   return (
     <div className="space-y-16">
@@ -50,7 +54,8 @@ export default function HomePage() {
           <div>
             <h2 className="text-2xl font-semibold">Products</h2>
             <p className="mt-2 text-white/60">
-              PLC controllers and modules designed for industrial and mobile automation.
+
+              Controllers, expansion modules, and industrial accessories for rugged automation.
             </p>
           </div>
           <Link href="/products" className="text-sm text-white/80 hover:text-white">
