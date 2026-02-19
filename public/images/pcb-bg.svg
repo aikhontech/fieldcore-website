@@ -1,0 +1,22 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#00bcd4" stroke-width="1.5" fill="none" opacity="0.4">
+    <!-- Horizontal traces -->
+    <path d="M50 100 H400 V150 H650 V120 H900"/>
+    <path d="M200 250 H500 V300 H800"/>
+    <path d="M100 450 H350 V500 H600 V470 H1000"/>
+    <path d="M300 650 H700 V600 H950"/>
+
+    <!-- Vertical traces -->
+    <path d="M150 50 V300 H250 V550"/>
+    <path d="M600 100 V350 H700 V700"/>
+    <path d="M900 150 V500 H1000"/>
+
+    <!-- Vias -->
+    <circle cx="150" cy="100" r="5" fill="#00bcd4"/>
+    <circle cx="400" cy="100" r="5" fill="#00bcd4"/>
+    <circle cx="650" cy="120" r="5" fill="#00bcd4"/>
+    <circle cx="350" cy="500" r="5" fill="#00bcd4"/>
+    <circle cx="700" cy="350" r="5" fill="#00bcd4"/>
+    <circle cx="900" cy="500" r="5" fill="#00bcd4"/>
+  </g>
+</svg>
