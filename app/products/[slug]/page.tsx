@@ -86,8 +86,7 @@ export default async function ProductDetailPage({
             <div>
               <h2 className="text-xl font-semibold">{product.name} catalog</h2>
               <p className="mt-2 text-sm text-white/60">
-                Showing SKUs currently loaded into the site. Add/remove items in{" "}
-                <span className="text-white/80">lib/products/</span>.
+                Browse available configurations below. Contact Sales for compatibility guidance and pricing.
               </p>
             </div>
           </div>

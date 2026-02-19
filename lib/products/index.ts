@@ -2,15 +2,15 @@ import type { Product } from "./types";
 import { coreProducts } from "./core";
 import { accessoryCategoryCards } from "./accessories-categories";
 import { connectorProducts } from "./connectors";
-// import { cableGlandProducts } from "./cable-glands";
-// import { consumableProducts } from "./consumables";
+import { cableGlandProducts } from "./cable-glands";
+import { consumableProducts } from "./consumables";
 
 export const products: Product[] = [
   ...coreProducts,
   ...accessoryCategoryCards,
   ...connectorProducts,
-  // ...cableGlandProducts,
-  // ...consumableProducts,
+  ...cableGlandProducts,
+  ...consumableProducts,
 ];
 
 export function getProduct(slug?: string) {
