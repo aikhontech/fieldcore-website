@@ -8,9 +8,7 @@ export default function AboutPage() {
             Built for rugged automation.
           </h1>
           <p className="mt-4 text-white/70 md:text-lg">
-            Fieldcore Technologies designs PLC-style controllers and modular I/O for
-            real-world deployments—industrial automation, vehicle upfits, and mobile systems
-            that need reliability, serviceability, and clean integration.
+            Fieldcore Technologies designs rugged PLC-style controllers and modular I/O systems for real-world deployment — industrial automation, vehicle upfits, and mobile platforms that demand reliability, serviceability, and clean integration.
           </p>
         </div>
       </section>

@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="mt-20 border-t border-white/10 pt-10 pb-16">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-3">
         <div>
-          <div className="text-sm font-semibold text-white">FIELDCORE</div>
+          <div className="text-sm font-semibold text-white">FIELDCORE TECHNOLOGIES</div>
           <div className="mt-2 text-sm text-white/60">
             Industrial automation products built for real-world deployment.
           </div>
@@ -41,7 +41,7 @@ export default function Footer() {
           </div>
           
           <div className="mt-4 text-white/60 text-xs">
-          Ontario, Canada
+            Ontario, Canada
           </div>
 
         </div>
