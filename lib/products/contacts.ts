@@ -1,191 +1,166 @@
 import type { Product } from "./types";
 
+function slugifySku(sku: string) {
+  return sku
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function contact(opts: {
+  sku: string;
+  name: string;
+  short: string;
+  size: number;
+  style: "Solid" | "Stamped";
+  type: "Pin" | "Socket";
+  wireGauge?: string;      // e.g. "16–18" or "20-16"
+  internalRef?: string;    // your private ATxx-xxxx-xxxxx PN (optional)
+  description?: string;    // optional override
+}): Product {
+  const wireLabel = opts.wireGauge
+    ? opts.wireGauge.replace("-", "–") + " AWG"
+    : "Varies by application";
+
+  return {
+    slug: slugifySku(opts.sku),
+    sku: opts.sku,
+    internalRef: opts.internalRef,
+
+    name: opts.name,
+    short: opts.short,
+
+    description:
+      opts.description ??
+      `Size ${opts.size} ${opts.style.toLowerCase()} ${opts.type.toLowerCase()} contact for sealed connector systems. Contact Sales for compatibility guidance.`,
+
+    category: "Accessories",
+    group: "Contacts",
+
+    wireGauge: opts.wireGauge,
+
+    images: [
+      {
+        // ✅ Put your images here with exact SKU names:
+        // public/images/contacts/FC-CON-CT-16-ST-SK-1618.webp
+        src: `/images/contacts/${opts.sku}.webp`,
+        alt: opts.name,
+      },
+    ],
+
+    highlights: [
+      `Size ${opts.size}`,
+      `${opts.style} construction`,
+      `${opts.type} contact`,
+      ...(opts.wireGauge ? [`${wireLabel} wire range`] : []),
+    ],
+
+    specs: [
+      { label: "Contact Size", value: String(opts.size) },
+      { label: "Style", value: opts.style },
+      { label: "Type", value: opts.type },
+      { label: "Wire Gauge", value: wireLabel },
+    ],
+
+    status: "Available",
+  };
+}
+
 export const contactProducts: Product[] = [
-  {
-    slug: "fc-con-ct-16-st-sk-1618",
+  // --- Size 16 (Stamped) 16–18 AWG ---
+  contact({
     sku: "FC-CON-CT-16-ST-SK-1618",
     name: "Size 16 Stamped Socket Contact",
     short: "Stamped contact for 16–18 AWG wire",
-    description:
-      "Size 16 stamped socket contact compatible with industrial sealed connector systems.",
-    highlights: [
-      "Size 16",
-      "Stamped construction",
-      "Socket contact",
-      "16–18 AWG wire range",
-    ],
-    specs: [
-      { label: "Contact Size", value: "16" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Socket" },
-      { label: "Wire Gauge", value: "16–18 AWG" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    wireGauge: "16–18 AWG",
-    status: "Available",
-  },
+    size: 16,
+    style: "Stamped",
+    type: "Socket",
+    wireGauge: "16-18",
+  }),
 
-  {
-    slug: "fc-con-ct-16-st-pn-1618",
+  contact({
     sku: "FC-CON-CT-16-ST-PN-1618",
     name: "Size 16 Stamped Pin Contact",
     short: "Stamped contact for 16–18 AWG wire",
-    description:
-      "Size 16 stamped pin contact compatible with industrial sealed connector systems.",
-    highlights: [
-      "Size 16",
-      "Stamped construction",
-      "Pin contact",
-      "16–18 AWG wire range",
-    ],
-    specs: [
-      { label: "Contact Size", value: "16" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Pin" },
-      { label: "Wire Gauge", value: "16–18 AWG" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    wireGauge: "16–18 AWG",
-    status: "Available",
-  },
+    size: 16,
+    style: "Stamped",
+    type: "Pin",
+    wireGauge: "16-18",
+  }),
 
-
-
-  {
-    slug: "fc-con-ct-14-st-pn-1418",
+  // --- Size 14 (Stamped) ---
+  contact({
     sku: "FC-CON-CT-14-ST-PN-1418",
     name: "Size 14 Stamped Pin Contact",
     short: "Stamped pin contact",
-    description: "Size 14 stamped pin contact for sealed connector systems.",
-    highlights: ["Size 14", "Stamped", "Pin contact"],
-    specs: [
-      { label: "Contact Size", value: "14" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Pin" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 14,
+    style: "Stamped",
+    type: "Pin",
+  }),
 
-    {
-    slug: "fc-con-ct-14-st-sk-1418",
+  contact({
     sku: "FC-CON-CT-14-ST-SK-1418",
     name: "Size 14 Stamped Socket Contact",
     short: "Stamped socket contact",
-    description: "Size 14 stamped socket contact for sealed connector systems.",
-    highlights: ["Size 14", "Stamped", "Socket contact"],
-    specs: [
-      { label: "Contact Size", value: "14" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Socket" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 14,
+    style: "Stamped",
+    type: "Socket",
+  }),
 
-  {
-    slug: "fc-con-ct-14-sd-sk",
+  // --- Size 14 (Solid / Machined) ---
+  contact({
     sku: "FC-CON-CT-14-SD-SK",
     name: "Size 14 Solid Socket Contact",
     short: "Solid machined socket contact",
-    description: "Size 14 solid (machined) socket contact.",
-    highlights: ["Size 14", "Solid machined", "Socket contact"],
-    specs: [
-      { label: "Contact Size", value: "14" },
-      { label: "Style", value: "Solid" },
-      { label: "Type", value: "Socket" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 14,
+    style: "Solid",
+    type: "Socket",
+  }),
 
-  {
-    slug: "fc-con-ct-14-sd-pn",
+  contact({
     sku: "FC-CON-CT-14-SD-PN",
     name: "Size 14 Solid Pin Contact",
     short: "Solid machined pin contact",
-    description: "Size 14 solid (machined) pin contact.",
-    highlights: ["Size 14", "Solid machined", "Pin contact"],
-    specs: [
-      { label: "Contact Size", value: "14" },
-      { label: "Style", value: "Solid" },
-      { label: "Type", value: "Pin" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 14,
+    style: "Solid",
+    type: "Pin",
+  }),
 
-  {
-    slug: "fc-con-ct-12-sd-sk",
+  // --- Size 12 (Solid / Machined) ---
+  contact({
     sku: "FC-CON-CT-12-SD-SK",
     name: "Size 12 Solid Socket Contact",
     short: "Solid machined socket contact",
-    description: "Size 12 solid (machined) socket contact.",
-    highlights: ["Size 12", "Solid machined", "Socket contact"],
-    specs: [
-      { label: "Contact Size", value: "12" },
-      { label: "Style", value: "Solid" },
-      { label: "Type", value: "Socket" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 12,
+    style: "Solid",
+    type: "Socket",
+  }),
 
-  {
-    slug: "fc-con-ct-12-sd-pn",
+  contact({
     sku: "FC-CON-CT-12-SD-PN",
     name: "Size 12 Solid Pin Contact",
     short: "Solid machined pin contact",
-    description: "Size 12 solid (machined) pin contact.",
-    highlights: ["Size 12", "Solid machined", "Pin contact"],
-    specs: [
-      { label: "Contact Size", value: "12" },
-      { label: "Style", value: "Solid" },
-      { label: "Type", value: "Pin" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 12,
+    style: "Solid",
+    type: "Pin",
+  }),
 
-  {
-    slug: "fc-con-ct-12-st-sk",
+  // --- Size 12 (Stamped) ---
+  contact({
     sku: "FC-CON-CT-12-ST-SK",
     name: "Size 12 Stamped Socket Contact",
     short: "Stamped socket contact",
-    description: "Size 12 stamped socket contact.",
-    highlights: ["Size 12", "Stamped", "Socket contact"],
-    specs: [
-      { label: "Contact Size", value: "12" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Socket" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 12,
+    style: "Stamped",
+    type: "Socket",
+  }),
 
-  {
-    slug: "fc-con-ct-12-st-pn",
+  contact({
     sku: "FC-CON-CT-12-ST-PN",
     name: "Size 12 Stamped Pin Contact",
     short: "Stamped pin contact",
-    description: "Size 12 stamped pin contact.",
-    highlights: ["Size 12", "Stamped", "Pin contact"],
-    specs: [
-      { label: "Contact Size", value: "12" },
-      { label: "Style", value: "Stamped" },
-      { label: "Type", value: "Pin" },
-    ],
-    category: "Accessories",
-    group: "Contacts",
-    status: "Available",
-  },
+    size: 12,
+    style: "Stamped",
+    type: "Pin",
+  }),
 ];
