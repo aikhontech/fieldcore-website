@@ -195,4 +195,8 @@ export const connectorProducts: Product[] = [
 
   conn({ sku: "FC-CONN-RO-24-16PA", internalRef: "AHDP06-24-16PN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16sa"] }),
   conn({ sku: "FC-CONN-RO-24-16SA", internalRef: "AHDP04-24-16SN-SRA", positions: 16, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-16pa"] }),
+
+    // 31-position
+  conn({ sku: "FC-CONN-RO-24-31PA", internalRef: "AHDP06-24-31PR-SRA", positions: 31, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-31sa"] }),
+  conn({ sku: "FC-CONN-RO-24-31SA", internalRef: "AHDP04-24-31SR-SRA", positions: 31, series: "AHDP", family: "RO", matesWith: ["fc-conn-ro-24-31pa"] }),
 ];
