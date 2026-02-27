@@ -4,6 +4,7 @@ import { accessoryCategoryCards } from "./accessories-categories";
 import { connectorProducts } from "./connectors";
 import { cableGlandProducts } from "./cable-glands";
 import { consumableProducts } from "./consumables";
+import { contactProducts } from "./contacts";
 
 export const products: Product[] = [
   ...coreProducts,
@@ -11,6 +12,7 @@ export const products: Product[] = [
   ...connectorProducts,
   ...cableGlandProducts,
   ...consumableProducts,
+  ...contactProducts,
 ];
 
 export function getProduct(slug?: string) {

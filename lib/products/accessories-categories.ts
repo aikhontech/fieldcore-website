@@ -71,5 +71,18 @@ export const accessoryCategoryCards: Product[] = [
   status: "Available",
   },
 
+  {
+  slug: "contacts",
+  name: "Contacts",
+  short: "Pins & Sockets - Stamped and solid contacts in common sizes",
+  description:
+    "Contact pins and sockets for sealed connector systems. Size 16/14/12 options available.",
+  highlights: ["Stamped & Solid", "Pins & Sockets", "Size 16 / 14 / 12"],
+  specs: [],
+  category: "Accessories",
+  group: "Category",
+  status: "Available",
+  },
+
   // ...harness-components, etc.
 ];

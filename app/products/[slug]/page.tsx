@@ -114,7 +114,10 @@ export default async function ProductDetailPage({
                     )}
 
                     <div className="text-xs text-white/60">{p.status ?? "—"}</div>
-                    <div className="mt-2 text-lg font-semibold">{p.sku ?? p.name}</div>
+                    <div className="mt-2 text-lg font-semibold">{p.name}</div>
+                    {p.sku && (
+                      <div className="mt-1 text-sm text-white/60">{p.sku}</div>
+                    )}
                     <div className="mt-2 text-sm text-white/60">{p.short}</div>
                     <div className="mt-4 text-sm font-semibold text-white/80">
                       View details →
