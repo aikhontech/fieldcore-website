@@ -138,8 +138,8 @@ export const connectorProducts: Product[] = [
   conn({ sku: "FC-CONN-RE-06P-NAT", internalRef: "AT06-6S", positions: 6, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-06s-nat"] }),
   conn({ sku: "FC-CONN-RE-06S-NAT", internalRef: "AT04-6P", positions: 6, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-06p-nat"] }),
 
-  conn({ sku: "FC-CONN-RE-08P-A-NAT", internalRef: "AT06-08SA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-08s-a-nat"] }),
-  conn({ sku: "FC-CONN-RE-08S-A-NAT", internalRef: "AT04-08PA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-08p-a-nat"] }),
+  conn({ sku: "FC-CONN-RE-08P-A-NAT", internalRef: "AT06-08SA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", notes: "Key Position A sealed 8-position plug housing.", matesWith: ["fc-conn-re-08s-a-nat"] }),
+  conn({ sku: "FC-CONN-RE-08S-A-NAT", internalRef: "AT04-08PA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", notes: "Key Position A sealed 8-position receptacle housing.", matesWith: ["fc-conn-re-08p-a-nat"] }),
 
 
   // -------------------
