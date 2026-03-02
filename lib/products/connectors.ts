@@ -10,13 +10,14 @@ const SERIES_ORDER: Record<string, number> = {
   HDP20: 3,
   AHDP: 4,
 };
-
+ 
 const COLOR_ORDER: Record<string, number> = {
-  BLK: 0,
-  BLU: 1,
-  RED: 2,
-  GRN: 3,
-  BRN: 4,
+  NAT: 0,
+  BLK: 1,
+  BLU: 2,
+  RED: 3,
+  GRN: 4,
+  BRN: 5,
 };
 
 function slugifySku(sku: string) {
@@ -69,8 +70,8 @@ function conn(opts: {
     wireGauge: opts.wireGauge,
     color: opts.color,
     matesWith: opts.matesWith,
-    // group color variants together (BLK/BLU/RED/GRN/BRN)
-    variantGroup: opts.sku.replace(/-(BLK|BLU|RED|GRN|BRN)$/i, ""),
+    // group color variants together (NAT|BLK/BLU/RED/GRN/BRN)
+    variantGroup: opts.sku.replace(/-(NAT|BLK|BLU|RED|GRN|BRN)$/i, ""),
     short,
 
     images: [
@@ -120,6 +121,27 @@ export function sortConnectors(a: Product, b: Product) {
 }
 
 export const connectorProducts: Product[] = [
+
+  // -------------------
+  // AT (2-digit) NEUTRAL
+  // -------------------
+
+  conn({ sku: "FC-CONN-RE-02P-NAT", internalRef: "AT06-2S", positions: 2, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-02s-nat"] }),
+  conn({ sku: "FC-CONN-RE-02S-NAT", internalRef: "AT04-2P", positions: 2, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-02p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-03P-NAT", internalRef: "AT06-3S", positions: 3, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-03s-nat"] }),
+  conn({ sku: "FC-CONN-RE-03S-NAT", internalRef: "AT04-3P", positions: 3, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-03p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-04P-NAT", internalRef: "AT06-4S", positions: 4, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-04s-nat"] }),
+  conn({ sku: "FC-CONN-RE-04S-NAT", internalRef: "AT04-4P", positions: 4, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-04p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-06P-NAT", internalRef: "AT06-6S", positions: 6, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-06s-nat"] }),
+  conn({ sku: "FC-CONN-RE-06S-NAT", internalRef: "AT04-6P", positions: 6, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-06p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-08P-A-NAT", internalRef: "AT06-08SA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-08s-a-nat"] }),
+  conn({ sku: "FC-CONN-RE-08S-A-NAT", internalRef: "AT04-08PA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-08p-a-nat"] }),
+
+
   // -------------------
   // AT (2-digit) BLACK
   // -------------------
@@ -160,6 +182,20 @@ export const connectorProducts: Product[] = [
   conn({ sku: "FC-CONN-RE-04P-BRN", internalRef: "AT06-4S-BRN", positions: 4, series: "AT", family: "RE", wireGauge: "20-16", color: "BRN" }),
   conn({ sku: "FC-CONN-RE-04S-BLU", internalRef: "AT04-4P-BLU", positions: 4, series: "AT", family: "RE", wireGauge: "20-16", color: "BLU" }),
 
+
+
+  // -------------------
+  // ATP (3-digit) NEUTRAL
+  // -------------------
+  conn({ sku: "FC-CONN-RE-002P-NAT", internalRef: "ATP06-2S", positions: 2, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-002s-nat"] }),
+  conn({ sku: "FC-CONN-RE-002S-NAT", internalRef: "ATP04-2P", positions: 2, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-002p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-004P-NAT", internalRef: "ATP06-4S", positions: 4, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-004s-nat"] }),
+  conn({ sku: "FC-CONN-RE-004S-NAT", internalRef: "ATP04-4P", positions: 4, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-004p-nat"] }),
+
+  conn({ sku: "FC-CONN-RE-006P-NAT", internalRef: "ATP06-6S", positions: 6, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-006s-nat"] }),
+  conn({ sku: "FC-CONN-RE-006S-NAT", internalRef: "ATP04-6P", positions: 6, series: "ATP", family: "RE", color: "NAT", matesWith: ["fc-conn-re-006p-nat"] }),
+
   // -------------------
   // ATP (3-digit) BLACK
   // -------------------
@@ -172,9 +208,6 @@ export const connectorProducts: Product[] = [
   conn({ sku: "FC-CONN-RE-006P-BLK", internalRef: "ATP06-6S-BLK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006s-blk"] }),
   conn({ sku: "FC-CONN-RE-006S-BLK", internalRef: "ATP04-6P-BLK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006p-blk"] }),
 
-  // ATP “no color code” SKUs (kept neutral)
-  conn({ sku: "FC-CONN-RE-006P", internalRef: "ATP06-6S", positions: 6, series: "ATP", family: "RE", matesWith: ["fc-conn-re-006s"] }),
-  conn({ sku: "FC-CONN-RE-006S", internalRef: "ATP04-6P", positions: 6, series: "ATP", family: "RE", matesWith: ["fc-conn-re-006p"] }),
 
   // ATP MM01BLK variant pair
   conn({ sku: "FC-CONN-RE-004P-MM01BLK", internalRef: "ATP06-4S-MM01BLK", positions: 4, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-004s-mm01blk"], notes: "ATP 4-position plug housing (MM01 variant)." }),
