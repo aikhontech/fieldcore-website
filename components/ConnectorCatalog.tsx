@@ -26,12 +26,12 @@ export default function ConnectorCatalog({ items }: { items: Product[] }) {
   );
 
   const SERIES_LABEL: Record<string, string> = {
-  ATM: "Micro (1-digit)",
-  AT: "Standard (2-digit)",
-  ATP: "Power (3-digit)",
+  ATM: "Micro",
+  AT: "Standard",
+  ATP: "Power",
   HDP20: "HDP20",
   AHDP: "AHDP",
-};
+ };
 
   // Filters
   const [series, setSeries] = useState<string>("All");

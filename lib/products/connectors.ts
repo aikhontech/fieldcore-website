@@ -20,6 +20,42 @@ const COLOR_ORDER: Record<string, number> = {
   BRN: 5,
 };
 
+type Series = "ATM" | "AT" | "ATP" | "HDP20" | "AHDP";
+
+export function formatPositionsCode(series: Series, positions: number) {
+  const n = String(positions);
+
+  if (series === "ATM") {
+    // ATM: no leading zeros (2,3,4,6,8,12...)
+    return n;
+  }
+
+  if (series === "AT") {
+    // AT: <10 => 02..08, >=10 => 012, 014...
+    return positions < 10 ? n.padStart(2, "0") : `0${n}`;
+  }
+
+  if (series === "ATP") {
+    // ATP: <10 => 002..008, >=10 => 0012...
+    return positions < 10 ? n.padStart(3, "0") : n.padStart(4, "0");
+  }
+
+  return n;
+}
+
+function rectSku(opts: {
+  family: "RE";            // rectangle family
+  series: Series;          // AT/ATP/ATM...
+  positions: number;       // numeric pin count
+  side: "P" | "S";         // Plug / Receptacle
+  color: string;           // BLK/BLU/RED/NAT...
+  key?: "A" | "B" | "C";   // optional key like "A"
+}) {
+  const posCode = formatPositionsCode(opts.series, opts.positions);
+  const keyPart = opts.key ? `-${opts.key}` : "";
+  return `FC-CONN-${opts.family}-${posCode}${opts.side}${keyPart}-${opts.color}`;
+}
+
 function slugifySku(sku: string) {
   return sku
     .toLowerCase()
@@ -28,9 +64,13 @@ function slugifySku(sku: string) {
 }
 
 function isPlugFromSku(sku: string) {
-  // Rectangle: ...-02P-... (plug) vs ...-02S-... (receptacle)
-  // Round: ...-08PA... (plug) vs ...-08SA... (receptacle)
-  return /-0?\d+(?:\d)?P-/.test(sku) || /-0?\d+-0?\d+PA\b/.test(sku) || sku.includes("-PLUG-");
+  // Rectangle: ...-02P-..., ...-012P-..., ...-0012P-...
+  const rectPlug = /-\d{1,4}P-/.test(sku);
+
+  // Round/circular: ...-18-08PA (plug) vs ...-18-08SA (receptacle)
+  const roundPlug = /-\d{2}-\d{2}PA\b/.test(sku);
+
+  return rectPlug || roundPlug || sku.includes("-PLUG-");
 }
 
 function conn(opts: {
@@ -120,7 +160,60 @@ export function sortConnectors(a: Product, b: Product) {
   return (a.sku ?? a.name).localeCompare(b.sku ?? b.name);
 }
 
+function rectPair(opts: {
+  series: Series;
+  positions: number;
+  color: string;
+  internalPlug: string;
+  internalRec: string;
+  wireGauge?: string;
+  key?: "A" | "B" | "C";
+}) {
+  const plugSku = rectSku({ family: "RE", series: opts.series, positions: opts.positions, side: "P", color: opts.color, key: opts.key });
+  const recSku  = rectSku({ family: "RE", series: opts.series, positions: opts.positions, side: "S", color: opts.color, key: opts.key });
+
+  return [
+    conn({
+      sku: plugSku,
+      internalRef: opts.internalPlug,
+      positions: opts.positions,
+      series: opts.series,
+      family: "RE",
+      wireGauge: opts.wireGauge,
+      color: opts.color,
+      matesWith: [slugifySku(recSku)],
+    }),
+    conn({
+      sku: recSku,
+      internalRef: opts.internalRec,
+      positions: opts.positions,
+      series: opts.series,
+      family: "RE",
+      wireGauge: opts.wireGauge,
+      color: opts.color,
+      matesWith: [slugifySku(plugSku)],
+    }),
+  ] as const;
+}
+
 export const connectorProducts: Product[] = [
+
+  // -------------------
+  // ATM (1-digit) NEUTRAL
+  // -------------------
+
+// -------------------
+// ATM (1-digit) NEUTRAL
+// -------------------
+...rectPair({ series: "ATM", positions: 2, color: "NAT", wireGauge: "22-18", internalPlug: "ATM06-2S", internalRec: "ATM04-2P" }),
+...rectPair({ series: "ATM", positions: 3, color: "NAT", wireGauge: "22-18", internalPlug: "ATM06-3S", internalRec: "ATM04-3P" }),
+...rectPair({ series: "ATM", positions: 4, color: "NAT", wireGauge: "22-18", internalPlug: "ATM06-4S", internalRec: "ATM04-4P" }),
+...rectPair({ series: "ATM", positions: 6, color: "NAT", wireGauge: "22-18", internalPlug: "ATM06-6S", internalRec: "ATM04-6P" }),
+
+...rectPair({ series: "ATM", positions: 8, color: "NAT", key:"A", wireGauge: "22-18", internalPlug: "ATM06-08SA", internalRec: "ATM04-08PA" }),
+...rectPair({ series: "ATM", positions: 12, color: "NAT", key:"A", wireGauge: "22-18", internalPlug: "ATM06-12SA", internalRec: "ATM04-12PA" }),
+
+
 
   // -------------------
   // AT (2-digit) NEUTRAL
@@ -141,6 +234,16 @@ export const connectorProducts: Product[] = [
   conn({ sku: "FC-CONN-RE-08P-A-NAT", internalRef: "AT06-08SA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", notes: "Key Position A sealed 8-position plug housing.", matesWith: ["fc-conn-re-08s-a-nat"] }),
   conn({ sku: "FC-CONN-RE-08S-A-NAT", internalRef: "AT04-08PA", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", notes: "Key Position A sealed 8-position receptacle housing.", matesWith: ["fc-conn-re-08p-a-nat"] }),
 
+  conn({
+  sku: rectSku({ family: "RE", series: "AT", positions: 12, side: "P", color: "NAT", key: "A" }),
+  internalRef: "AT06-12SA", positions: 12, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-012s-a-nat"], 
+  }),
+
+  conn({
+  sku: rectSku({ family: "RE", series: "AT", positions: 12, side: "S", color: "NAT", key: "A" }),
+  internalRef: "AT04-12PA", positions: 12, series: "AT", family: "RE", wireGauge: "20-16", color: "NAT", matesWith: ["fc-conn-re-012p-a-nat"],
+  }),
+
 
   // -------------------
   // AT (2-digit) BLACK
@@ -160,6 +263,16 @@ export const connectorProducts: Product[] = [
   // 8-position KEY A (black)
   conn({ sku: "FC-CONN-RE-08P-A-BLK", internalRef: "AT06-08SA-BLK", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "BLK", matesWith: ["fc-conn-re-08s-a-blk"], notes: "Key Position A sealed 8-position plug housing." }),
   conn({ sku: "FC-CONN-RE-08S-A-BLK", internalRef: "AT04-08PA-BLK", positions: 8, series: "AT", family: "RE", wireGauge: "20-16", color: "BLK", matesWith: ["fc-conn-re-08p-a-blk"], notes: "Key Position A sealed 8-position receptacle housing." }),
+
+  conn({
+  sku: rectSku({ family: "RE", series: "AT", positions: 12, side: "P", color: "BLK", key: "A"}),
+  internalRef: "AT06-12SA-BLK", positions: 12, series: "AT", family: "RE", wireGauge: "20-16", color: "BLK", matesWith: ["fc-conn-re-012s-a-blk"], 
+  }),
+
+  conn({
+  sku: rectSku({ family: "RE", series: "AT", positions: 12, side: "S", color: "BLK", key: "A" }),
+  internalRef: "AT04-12PA-BLK", positions: 12, series: "AT", family: "RE", wireGauge: "20-16", color: "BLK", matesWith: ["fc-conn-re-012p-a-blk"],
+  }),
 
   // -------------------
   // AT COLOR VARIANTS (match color only)
