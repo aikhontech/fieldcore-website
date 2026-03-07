@@ -105,6 +105,7 @@ function conn(opts: {
     internalRef: opts.internalRef,
     category: "Accessories",
     group: "Connectors",
+    parentSlug: "connectors",
     positions: opts.positions,
     series: opts.series,
     wireGauge: opts.wireGauge,

@@ -20,4 +20,6 @@ export type Product = {
   matesWith?: string[];
   variantGroup?: string;
   color?: string;
+
+  parentSlug?: string;
 };

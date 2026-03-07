@@ -36,6 +36,7 @@ function contact(opts: {
 
     category: "Accessories",
     group: "Contacts",
+    parentSlug: "contacts",
 
     wireGauge: opts.wireGauge,
 

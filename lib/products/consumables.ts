@@ -7,6 +7,7 @@ export const consumableProducts: Product[] = [
     sku: "FC-SOLDER-60-40-1.5MM",
     category: "Accessories",
     group: "Consumables",
+    parentSlug: "consumables",
     short: "Industrial 60/40 tin-lead solder wire for electronics assembly.",
     description:
       "High-quality 60/40 tin-lead solder wire suitable for control systems, PCB assembly, and harness fabrication.",

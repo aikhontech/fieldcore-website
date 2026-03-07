@@ -7,6 +7,7 @@ export const coreProducts: Product[] = [
     sku: "FC-PLC-10DI8RO-AO1-V1", // ✅ Fieldcore SKU / part number
     internalRef: "Prototype 3 (ESP32-WROOM-32E-H4)", // optional internal reference
     category: "Controllers",
+    parentSlug: "products",
     short:
       "Rugged 9–30V industrial controller with opto-isolated inputs and relay outputs for field automation and vehicle upfitting.",
     description:

@@ -16,6 +16,7 @@ function gland(opts: {
     internalRef: opts.internalRef,
     category: "Accessories",
     group: "Cable Glands",
+    parentSlug: "cable-glands",
     short: `${opts.thread} industrial cable gland for enclosure strain relief.`,
     description:
       opts.notes ??

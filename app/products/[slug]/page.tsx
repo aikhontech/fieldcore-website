@@ -49,6 +49,20 @@ export default async function ProductDetailPage({
       )
   : [];
 
+  const backHref =
+    isCategory
+      ? "/products"
+      : product.parentSlug && product.parentSlug !== "products"
+      ? `/products/${product.parentSlug}`
+      : "/products";
+
+  const backLabel =
+    isCategory
+      ? "products"
+      : product.parentSlug
+      ? product.parentSlug.replace(/-/g, " ")
+      : "products";
+
   return (
     <div className="space-y-10">
       {/* Header */}
@@ -199,8 +213,8 @@ export default async function ProductDetailPage({
       )}
 
       <div>
-        <Link href="/products" className="text-white/70 hover:text-white">
-          ← Back to products
+        <Link href={backHref} className="text-white/70 hover:text-white">
+          ← Back to {backLabel}
         </Link>
       </div>
     </div>
