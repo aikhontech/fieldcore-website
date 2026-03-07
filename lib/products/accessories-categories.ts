@@ -27,6 +27,7 @@ export const accessoryCategoryCards: Product[] = [
     status: "Available",
   },
 
+
   // ✅ ADD THIS
   {
     slug: "cable-glands",
@@ -51,37 +52,60 @@ export const accessoryCategoryCards: Product[] = [
   },
 
   {
-  slug: "consumables",
-  name: "Consumables",
-  category: "Accessories",
-  group: "Category",
-  short: "Solder wire, assembly materials, and installation supplies for control systems.",
-  description:
-    "Industrial solder wire and related consumables for electronics assembly, harness fabrication, and field service applications.",
-  highlights: [
-    "Industrial-grade solder wire",
-    "Assembly and repair compatible",
-    "Suitable for control panels and harness builds",
-  ],
-  specs: [
-    { label: "Includes", value: "Solder wire, flux core variants, assembly materials" },
-    { label: "Applications", value: "Electronics assembly, harness fabrication, service repair" },
-    { label: "Ordering", value: "Contact Sales for quotes and bulk pricing" },
-  ],
-  status: "Available",
+    slug: "consumables",
+    name: "Consumables",
+    category: "Accessories",
+    group: "Category",
+    short: "Solder wire, assembly materials, and installation supplies for control systems.",
+    description:
+      "Industrial solder wire and related consumables for electronics assembly, harness fabrication, and field service applications.",
+    highlights: [
+      "Industrial-grade solder wire",
+      "Assembly and repair compatible",
+      "Suitable for control panels and harness builds",
+    ],
+    specs: [
+      { label: "Includes", value: "Solder wire, flux core variants, assembly materials" },
+      { label: "Applications", value: "Electronics assembly, harness fabrication, service repair" },
+      { label: "Ordering", value: "Contact Sales for quotes and bulk pricing" },
+    ],
+    status: "Available",
   },
 
   {
-  slug: "contacts",
-  name: "Contacts",
-  short: "Pins & Sockets - Stamped and solid contacts in common sizes",
-  description:
-    "Contact pins and sockets for sealed connector systems. Size 16/14/12 options available.",
-  highlights: ["Stamped & Solid", "Pins & Sockets", "Size 16 / 14 / 12"],
-  specs: [],
-  category: "Accessories",
-  group: "Category",
-  status: "Available",
+    slug: "contacts",
+    name: "Contacts",
+    short: "Pins & Sockets - Stamped and solid contacts in common sizes",
+    description:
+      "Contact pins and sockets for sealed connector systems. Size 16/14/12 options available.",
+    highlights: ["Stamped & Solid", "Pins & Sockets", "Size 16 / 14 / 12"],
+    specs: [],
+    category: "Accessories",
+    group: "Category",
+    status: "Available",
+  },
+
+  {
+    slug: "wedge-locks",
+    name: "Wedge Locks",
+    short: "Secondary locking wedges for sealed connector housings.",
+    description:
+      "Wedge locks provide terminal retention assurance and proper contact alignment for compatible connector housings.",
+    highlights: [
+      "Secondary locking feature",
+      "Supports connector terminal retention",
+      "Available for multiple connector series",
+      "Industrial and vehicle wiring compatible",
+    ],
+    specs: [
+      { label: "Category", value: "Accessories" },
+      { label: "Group", value: "Wedge Locks" },
+      { label: "Ordering", value: "Contact Sales for pricing and lead times" },
+    ],
+    category: "Accessories",
+    group: "Category",
+    parentSlug: "products",
+    status: "Available",
   },
 
   // ...harness-components, etc.

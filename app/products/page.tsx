@@ -6,9 +6,21 @@ export default function ProductsPage() {
     .filter((p) => p.category === "Controllers")
     .sort((a, b) => a.name.localeCompare(b.name));
 
+  const ACCESSORY_ORDER: Record<string, number> = {
+    connectors: 0,
+    contacts: 1,
+    "wedge-locks": 2,
+    "cable-glands": 3,
+    consumables: 4,
+  };
+
   const accessories = products
     .filter((p) => p.category === "Accessories" && p.group === "Category")
-    .sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => {
+      const aOrder = ACCESSORY_ORDER[a.slug] ?? 999;
+      const bOrder = ACCESSORY_ORDER[b.slug] ?? 999;
+      return aOrder - bOrder;
+    });
 
   return (
     <div className="space-y-14">
