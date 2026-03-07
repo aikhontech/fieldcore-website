@@ -105,7 +105,6 @@ function conn(opts: {
     internalRef: opts.internalRef,
     category: "Accessories",
     group: "Connectors",
-    parentSlug: "connectors",
     positions: opts.positions,
     series: opts.series,
     wireGauge: opts.wireGauge,
@@ -322,6 +321,8 @@ export const connectorProducts: Product[] = [
   conn({ sku: "FC-CONN-RE-006P-BLK", internalRef: "ATP06-6S-BLK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006s-blk"] }),
   conn({ sku: "FC-CONN-RE-006S-BLK", internalRef: "ATP04-6P-BLK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006p-blk"] }),
 
+  conn({ sku: "FC-CONN-RE-006P-RD01BLK", internalRef: "ATP06-6S-RD01BK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006s-rd01blk"] }),
+  conn({ sku: "FC-CONN-RE-006S-RD01BLK", internalRef: "ATP04-6P-RD01BK", positions: 6, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-006p-rd01blk"] }),  
 
   // ATP MM01BLK variant pair
   conn({ sku: "FC-CONN-RE-004P-MM01BLK", internalRef: "ATP06-4S-MM01BLK", positions: 4, series: "ATP", family: "RE", color: "BLK", matesWith: ["fc-conn-re-004s-mm01blk"], notes: "ATP 4-position plug housing (MM01 variant)." }),
