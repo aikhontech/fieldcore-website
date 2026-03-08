@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import type { Product } from "@/lib/products";
 import { sortConnectors } from "@/lib/products/connectors";
+import { sortWedgeLocks } from "@/lib/products/wedge-locks";
 
 function uniq<T>(arr: T[]) {
   return Array.from(new Set(arr));
@@ -26,12 +27,15 @@ export default function ConnectorCatalog({ items }: { items: Product[] }) {
   );
 
   const SERIES_LABEL: Record<string, string> = {
-  ATM: "Micro",
-  AT: "Standard",
-  ATP: "Power",
-  HDP20: "HDP20",
-  AHDP: "AHDP",
- };
+    ATM: "Micro",
+    AT: "Standard",
+    ATP: "Power",
+    HDP20: "HDP20",
+    AHDP: "AHDP",
+    MICRO: "Micro",
+    STANDARD: "Standard",
+    POWER: "Power",
+  };
 
   // Filters
   const [series, setSeries] = useState<string>("All");
@@ -46,7 +50,12 @@ export default function ConnectorCatalog({ items }: { items: Product[] }) {
       return true;
     });
 
-    return [...list].sort(sortConnectors);
+    return [...list].sort((a, b) => {
+      if (a.group === "Wedge Locks" && b.group === "Wedge Locks") {
+        return sortWedgeLocks(a, b);
+      }
+      return sortConnectors(a, b);
+    });
   }, [items, series, pins, color]);
 
   // Quick lookup for mates
@@ -82,7 +91,7 @@ export default function ConnectorCatalog({ items }: { items: Product[] }) {
             onChange={(e) => setPins(e.target.value)}
           >
             <option value="All">All pin counts</option>
-            {pinOptions.sort((a,b)=>a-b).map(n => (
+            {pinOptions.sort((a, b) => a - b).map(n => (
               <option key={n} value={String(n)}>{n}</option>
             ))}
           </select>
