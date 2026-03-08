@@ -84,6 +84,7 @@ function wedge(opts: {
     name: `${opts.positions}-Position Wedge Lock ${side}`,
     sku: opts.sku,
     internalRef: opts.internalRef,
+    manufacturerSeries: opts.manufacturerSeries,
     category: "Accessories",
     group: "Wedge Locks",
     parentSlug: "wedge-locks",
@@ -114,12 +115,14 @@ function wedge(opts: {
 
     specs: [
       { label: "Series", value: opts.series },
-      { label: "Manufacturer Series", value: opts.manufacturerSeries },
       { label: "Positions", value: String(opts.positions) },
       { label: "Side", value: side },
       { label: "Contact Size", value: opts.contactSize },
       ...(opts.key ? [{ label: "Key Position", value: opts.key }] : []),
-      { label: "Ordering", value: "Contact Sales for pricing and compatibility guidance" },
+      {
+        label: "Ordering",
+        value: "Contact Sales for pricing and compatibility guidance",
+      },
     ],
 
     status: "Available",

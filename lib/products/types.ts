@@ -14,7 +14,10 @@ export type Product = {
   sku?: string;          // public Fieldcore SKU (shown)
   internalRef?: string;  // private OEM PN (hidden)
   positions?: number;
-  series?: string;       // internal only (AT/ATP/AHDP...)
+
+  series?: string;            // website grouping (MICRO / STANDARD / POWER)
+  manufacturerSeries?: string; // internal OEM series (ATM / AT / ATP)
+
   wireGauge?: string;
 
   matesWith?: string[];
