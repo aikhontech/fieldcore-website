@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 
 import { products, getProduct } from "@/lib/products";
 import { sortConnectors } from "@/lib/products/connectors";
+import { sortWedgeLocks } from "@/lib/products/wedge-locks";
 import ConnectorCatalog from "@/components/ConnectorCatalog";
 
 export function generateStaticParams() {
@@ -35,19 +36,19 @@ export default async function ProductDetailPage({
     product.category === "Accessories" && product.group === "Category";
 
   const related = isCategory
-  ? products
-      .filter(
-        (p) =>
-          p.category === "Accessories" &&
-          p.group === product.name &&
-          p.slug !== product.slug
-      )
-      .sort(
-        product.name === "Connectors"
-          ? sortConnectors
-          : (a, b) => a.name.localeCompare(b.name)
-      )
-  : [];
+    ? products
+        .filter(
+          (p) =>
+            p.category === "Accessories" &&
+            p.group === product.name &&
+            p.slug !== product.slug
+        )
+        .sort((a, b) => {
+          if (product.name === "Connectors") return sortConnectors(a, b);
+          if (product.name === "Wedge Locks") return sortWedgeLocks(a, b);
+          return a.name.localeCompare(b.name);
+        })
+    : [];
 
   const backHref =
     isCategory
@@ -106,7 +107,7 @@ export default async function ProductDetailPage({
           </div>
 
           {related.length ? (
-            product.name === "Connectors" ? (
+            product.name === "Connectors" || product.name === "Wedge Locks" ? (
               <ConnectorCatalog items={related} />
             ) : (
               <div className="grid gap-4 md:grid-cols-3">

@@ -220,12 +220,12 @@ export const wedgeLockProducts: Product[] = [
   ...wedgeSeriesSet({
     series: "ATM",
     pairs: [
-      { positions: 2, internalPlug: "WM-2P", internalRec: "WM-2S" },
-      { positions: 3, internalPlug: "WM-3P", internalRec: "WM-3S" },
-      { positions: 4, internalPlug: "WM-4P", internalRec: "WM-4S" },
-      { positions: 6, internalPlug: "WM-6P", internalRec: "WM-6S" },
-      { positions: 8, key: "A", internalPlug: "WM-8P", internalRec: "WM-8S" },
-      { positions: 12, key: "A", internalPlug: "WM-12P", internalRec: "WM-12S" },
+      { positions: 2, internalPlug: "AWM-2S", internalRec: "AWM-2P" },
+      { positions: 3, internalPlug: "AWM-3S", internalRec: "AWM-3P" },
+      { positions: 4, internalPlug: "AWM-4S", internalRec: "AWM-4P" },
+      { positions: 6, internalPlug: "AWM-6S", internalRec: "AWM-6P" },
+      { positions: 8, key: "A", internalPlug: "AWM-8S", internalRec: "AWM-8P" },
+      { positions: 12, key: "A", internalPlug: "AWM-12S", internalRec: "AWM-12P" },
     ],
   }),
 
@@ -235,12 +235,12 @@ export const wedgeLockProducts: Product[] = [
   ...wedgeSeriesSet({
     series: "AT",
     pairs: [
-      { positions: 2, internalPlug: "W2P", internalRec: "W2S" },
-      { positions: 3, internalPlug: "W3P", internalRec: "W3S" },
-      { positions: 4, internalPlug: "W4P", internalRec: "W4S" },
-      { positions: 6, internalPlug: "W6P", internalRec: "W6S" },
-      { positions: 8, key: "A", internalPlug: "W8P", internalRec: "W8S" },
-      { positions: 12, key: "A", internalPlug: "W12P", internalRec: "W12S" },
+      { positions: 2, internalPlug: "AW2S", internalRec: "AW2P" },
+      { positions: 3, internalPlug: "AW3S", internalRec: "AW3P" },
+      { positions: 4, internalPlug: "AW4S", internalRec: "AW4P" },
+      { positions: 6, internalPlug: "AW6S", internalRec: "AW6P" },
+      { positions: 8, key: "A", internalPlug: "AW8S", internalRec: "AW8P" },
+      { positions: 12, key: "A", internalPlug: "AW12S", internalRec: "AW12P" },
     ],
   }),
 
@@ -250,9 +250,9 @@ export const wedgeLockProducts: Product[] = [
   ...wedgeSeriesSet({
     series: "ATP",
     pairs: [
-      { positions: 2, internalPlug: "WP-2P", internalRec: "WP-2S" },
-      { positions: 4, internalPlug: "WP-4P", internalRec: "WP-4S" },
-      { positions: 6, internalPlug: "WP-6P", internalRec: "WP-6S" },
+      { positions: 2, internalPlug: "AWP-2S", internalRec: "AWP-2P" },
+      { positions: 4, internalPlug: "AWP-4S", internalRec: "AWP-4P" },
+      { positions: 6, internalPlug: "AWP-6S", internalRec: "AWP-6P" },
     ],
   }),
 ].sort(sortWedgeLocks);
