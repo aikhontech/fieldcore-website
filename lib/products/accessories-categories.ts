@@ -128,7 +128,29 @@ export const accessoryCategoryCards: Product[] = [
   category: "Accessories",
   group: "Category",
   status: "Available",
-},
+ },
+
+ {
+  slug: "boots",
+  name: "Boots",
+  short: "Protective boots and covers for terminals, lugs, studs, and power connections.",
+  description:
+    "Protective boots for electrical terminals and exposed power connections. Suitable for battery, winch, grounding, and industrial wiring applications.",
+  highlights: [
+    "Protective terminal covers",
+    "Color-coded options",
+    "Suitable for power wiring",
+    "Industrial and vehicle use",
+  ],
+  specs: [
+    { label: "Selection", value: "Style, size, color, fitment" },
+    { label: "Applications", value: "Battery, winch, power, grounding, harness protection" },
+    { label: "Ordering", value: "Contact Sales for compatibility guidance" },
+  ],
+  category: "Accessories",
+  group: "Category",
+  status: "Available",
+ },
 
   // ...harness-components, etc.
 ];

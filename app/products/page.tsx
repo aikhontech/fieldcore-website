@@ -11,8 +11,9 @@ export default function ProductsPage() {
     contacts: 1,
     "wedge-locks": 2,
     terminals: 3,
-    "cable-glands": 4,
-    consumables: 5,
+    boots: 4,
+    "cable-glands": 5,
+    consumables: 6,
   };
 
   const accessories = products
