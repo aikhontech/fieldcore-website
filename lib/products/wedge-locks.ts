@@ -256,6 +256,8 @@ export const wedgeLockProducts: Product[] = [
       { positions: 2, internalPlug: "AWP-2S", internalRec: "AWP-2P" },
       { positions: 4, internalPlug: "AWP-4S", internalRec: "AWP-4P" },
       { positions: 6, internalPlug: "AWP-6S", internalRec: "AWP-6P" },
+      { positions: 6, key: "A", internalPlug: "AWP-6S", internalRec: "AWP-6P" },
+      { positions: 6, key: "B", internalPlug: "AWP-6S", internalRec: "AWP-6P" },
     ],
   }),
 ].sort(sortWedgeLocks);
