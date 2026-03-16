@@ -108,5 +108,27 @@ export const accessoryCategoryCards: Product[] = [
     status: "Available",
   },
 
+  {
+  slug: "terminals",
+  name: "Terminals",
+  short: "Ring terminals, spade terminals, butt splices, and other wire termination hardware.",
+  description:
+    "Electrical terminals for power distribution, grounding, harness fabrication, and industrial wiring. Contact Sales for stud size, wire gauge, plating, and compatibility guidance.",
+  highlights: [
+    "Ring, spade, and splice styles",
+    "Multiple wire gauge options",
+    "Suitable for power and grounding connections",
+    "Industrial and vehicle wiring compatible",
+  ],
+  specs: [
+    { label: "Selection", value: "Terminal type, wire gauge, stud size, material/plating" },
+    { label: "Applications", value: "Power distribution, grounding, harness fabrication, field wiring" },
+    { label: "Ordering", value: "Contact Sales for quotes and compatibility guidance" },
+  ],
+  category: "Accessories",
+  group: "Category",
+  status: "Available",
+},
+
   // ...harness-components, etc.
 ];

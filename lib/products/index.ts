@@ -6,6 +6,7 @@ import { cableGlandProducts } from "./cable-glands";
 import { consumableProducts } from "./consumables";
 import { contactProducts } from "./contacts";
 import { wedgeLockProducts } from "./wedge-locks";
+import { terminalProducts } from "./terminals";
 
 export const products: Product[] = [
   ...coreProducts,
@@ -15,6 +16,7 @@ export const products: Product[] = [
   ...consumableProducts,
   ...contactProducts,
   ...wedgeLockProducts,
+  ...terminalProducts,
 ];
 
 export function getProduct(slug?: string) {
