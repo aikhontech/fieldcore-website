@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { products, getProduct } from "@/lib/products";
 import { sortConnectors } from "@/lib/products/connectors";
 import { sortWedgeLocks } from "@/lib/products/wedge-locks";
+import { sortTerminals } from "@/lib/products/terminals";
 import ConnectorCatalog from "@/components/ConnectorCatalog";
 
 export function generateStaticParams() {
@@ -46,6 +47,7 @@ export default async function ProductDetailPage({
         .sort((a, b) => {
           if (product.name === "Connectors") return sortConnectors(a, b);
           if (product.name === "Wedge Locks") return sortWedgeLocks(a, b);
+          if (product.name === "Terminals") return sortTerminals(a, b);
           return a.name.localeCompare(b.name);
         })
     : [];
