@@ -10,6 +10,7 @@ function slugifySku(sku: string) {
 function terminalBoot(opts: {
   sku: string;
   color: "Red" | "Black";
+  size: string;
   internalRef?: string;
   style?: string;
   fitment?: string;
@@ -20,8 +21,8 @@ function terminalBoot(opts: {
     sku: opts.sku,
     internalRef: opts.internalRef,
 
-    name: `${opts.color} Terminal Boot`,
-    short: `${opts.color.toLowerCase()} protective boot for terminal and stud connections.`,
+    name: `${opts.color} Terminal Boot (${opts.size})`,
+    short: `${opts.color.toLowerCase()} protective boot for ${opts.size.toLowerCase()} cable terminal connections.`,
 
     category: "Accessories",
     group: "Boots",
@@ -37,10 +38,11 @@ function terminalBoot(opts: {
 
     description:
       opts.notes ??
-      `${opts.color} protective PVC/rubber boot for covering exposed terminal or stud connections. Suitable for winch, battery, power, and industrial cable protection.`,
+      `${opts.color} protective PVC/rubber boot designed for ${opts.size} cable terminals. Suitable for winch, battery, and high-current power connections, helping protect exposed studs and reduce risk of short circuits.`,
 
     highlights: [
       `${opts.color} color coding`,
+      `${opts.size} cable compatibility`,
       "Protects exposed connections",
       "Helps reduce accidental shorting",
       "Suitable for power cable terminations",
@@ -49,9 +51,13 @@ function terminalBoot(opts: {
     specs: [
       { label: "Type", value: "Terminal Boot" },
       { label: "Color", value: opts.color },
+      { label: "Cable Size", value: opts.size },
       { label: "Material", value: "PVC / Rubber" },
       { label: "Style", value: opts.style ?? "Straight" },
-      { label: "Application", value: opts.fitment ?? "Terminal and stud protection" },
+      {
+        label: "Application",
+        value: opts.fitment ?? "Terminal and stud protection",
+      },
     ],
 
     status: "Available",
@@ -60,13 +66,27 @@ function terminalBoot(opts: {
 
 export const bootProducts: Product[] = [
   terminalBoot({
-    sku: "FC-BOOT-TERM-RED",
+    sku: "FC-BOOT-TERM-8AWG-RED",
     color: "Red",
-    fitment: "Winch, battery, and power terminal protection",
+    size: "8 AWG",
+    fitment: "Battery, winch, and power terminal protection",
   }),
   terminalBoot({
-    sku: "FC-BOOT-TERM-BLK",
+    sku: "FC-BOOT-TERM-8AWG-BLK",
     color: "Black",
-    fitment: "Winch, battery, and power terminal protection",
+    size: "8 AWG",
+    fitment: "Battery, winch, and power terminal protection",
+  }),
+  terminalBoot({
+    sku: "FC-BOOT-TERM-4-1AWG-RED",
+    color: "Red",
+    size: "4–1 AWG",
+    fitment: "High-current battery and winch terminals",
+  }),
+  terminalBoot({
+    sku: "FC-BOOT-TERM-4-1AWG-BLK",
+    color: "Black",
+    size: "4–1 AWG",
+    fitment: "High-current battery and winch terminals",
   }),
 ];
